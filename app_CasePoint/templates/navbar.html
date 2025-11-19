@@ -1,0 +1,25 @@
+{% load static %}
+<nav class="navbar">
+    <div class="nav-left">
+        <a href="{% url 'app_CasePoint:nosotros' %}"><img src="{% static 'imagenes/logo.png' %}" alt="LOGO" class="logo"></a>
+    </div>
+    <div class="nav-center">
+        <ul class="nav-links">
+            <li><a href="{% url 'app_CasePoint:inicio' %}">Inicio</a></li>
+            <li><a href="{% url 'app_CasePoint:departamentos' %}">Departamentos</a></li>
+            <li><a href="{% url 'app_CasePoint:categorias' %}">Categorías</a></li>
+            <li><a href="{% url 'app_CasePoint:marcas' %}">Marcas</a></li>
+        </ul>
+    </div>
+    <div class="nav-right">
+        <ul class="nav-links-right">
+            <li><a href="{% url 'app_CasePoint:view_cart' %}">Carrito</a></li>
+            {% if request.session.usuario_id %}
+                <li><a href="{% url 'app_CasePoint:perfil' %}">Mi Cuenta</a></li>
+                <li><a href="{% url 'app_CasePoint:logout' %}">Cerrar Sesión</a></li>
+            {% else %}
+                <li><a href="{% url 'app_CasePoint:iniciar_sesion' %}">Iniciar Sesión</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

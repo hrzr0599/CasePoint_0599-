@@ -1,0 +1,9 @@
+{% extends 'admin/base_admin.html' %}
+{% block admin_content %}
+    <h2>Eliminar Usuario</h2>
+    <p>¿Eliminar {{ usuario.nombre }} {{ usuario.apellido }} ?</p>
+    <form method="post">{% csrf_token %}
+        <button class="login-button" type="submit">Confirmar</button>
+        <a href="{% url 'app_CasePoint:ver_usuarios' %}"><button type="button" class="account-button">Cancelar</button></a>
+    </form>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'admin/base_admin.html' %}
+{% block admin_content %}
+    <div class="admin-content-wrapper">
+        <div class="admin-header">
+            <h2>Ver Empleados</h2>
+            <a href="{% url 'app_CasePoint:agregar_empleado' %}" class="btn-add">+ Agregar Empleado</a>
+        </div>
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Puesto</th>
+                    <th>Correo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for emp in empleados %}
+                    <tr>
+                        <td>{{ emp.id }}</td>
+                        <td>{{ emp.nombre }}</td>
+                        <td>{{ emp.apellido }}</td>
+                        <td>{{ emp.puesto }}</td>
+                        <td>{{ emp.correo }}</td>
+                        <td class="actions-cell">
+                            <a href="{% url 'app_CasePoint:actualizar_empleado' emp.id %}" class="btn-action btn-edit">Editar</a>
+                            <a href="{% url 'app_CasePoint:eliminar_empleado' emp.id %}" class="btn-action btn-delete">Eliminar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

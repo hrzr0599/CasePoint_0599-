@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="image-section">
+        <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
+    </div>
+    <div class="scroll-section">
+        <header><h1>{{ producto.nombre }}</h1></header>
+        <p>{{ producto.descripcion }}</p>
+        <p>Precio: ${{ producto.precio }}</p>
+        <p>Stock: {{ producto.stock }}</p>
+        <p>{% if producto.id_marca %}<strong>{{ producto.id_marca.nombre }}</strong>{% else %}<strong>Sin marca</strong>{% endif %}</p>
+        <a href="{% url 'app_CasePoint:add_to_cart' producto.id %}"><button class="login-button">Agregar al Carrito</button></a>
+    </div>
+{% endblock %}

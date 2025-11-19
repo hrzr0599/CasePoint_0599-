@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="image-section">
+        <img src="{% static 'imagenes/index-image.jpg' %}" alt="Imagen Principal">
+    </div>
+    <div class="scroll-section">
+        <header>
+            {% if selected_brand %}
+                <h1>Productos de {{ selected_brand.nombre }}</h1>
+            {% elif selected_categoria_display %}
+                <h1>Productos — {{ selected_categoria_display }}</h1>
+            {% elif selected_departamento_display %}
+                <h1>Productos — {{ selected_departamento_display }}</h1>
+            {% else %}
+                <h1>TODOS LOS PRODUCTOS</h1>
+            {% endif %}
+        </header>
+        <div class="products-grid">
+            {% for producto in productos %}
+                <div class="product-card">
+                    <div class="product-image">
+                        <a href="{% url 'app_CasePoint:producto_detalle' producto.id %}"><img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}"></a>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-name">{{ producto.nombre }}</span>
+                        <span class="product-price">${{ producto.precio }}</span>
+                    </div>
+                    <div style="padding:10px;text-align:center;">
+                        <a href="{% url 'app_CasePoint:add_to_cart' producto.id %}"><button class="login-button">Agregar al Carrito</button></a>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No hay productos.</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

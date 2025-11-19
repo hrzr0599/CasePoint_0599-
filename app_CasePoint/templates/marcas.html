@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="image-section">
+        <img src="{% static 'imagenes/index-image.jpg' %}" alt="Imagen Principal">
+    </div>
+    <div class="scroll-section">
+        <header><h1>MARCAS</h1></header>
+        <div class="products-grid">
+            {% for marca in marcas %}
+                <div class="product-card">
+                    <div class="product-image">
+                        <a href="{% url 'app_CasePoint:marca_detalle' marca.id %}"><img src="{{ marca.imagen_url }}" alt="{{ marca.nombre }}"></a>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-name">{{ marca.nombre }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

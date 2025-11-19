@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Empleado - CasePoint</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        .admin-top{display:flex;justify-content:space-between;padding:10px;background:#0d1631;color:#946f46;}
+        .admin-nav{padding:10px;}
+        /* Ensure submenu only appears when .open class is present. Important to override cached CSS. */
+        .has-submenu:hover > .submenu { display: none !important; }
+        .has-submenu.open > .submenu { display: flex !important; }
+    </style>
+</head>
+<body>
+    <nav class="navbar admin-navbar">
+        <div class="nav-left">
+            <a href="{% url 'app_CasePoint:inicio' %}" class="logo-link"><span class="logo-text">CasePoint</span></a>
+        </div>
+        <div class="nav-center"></div>
+        <div class="nav-right">
+            <ul class="nav-links-right admin-links">
+                <li class="has-submenu"><a href="#">Usuario</a>
+                    <ul class="submenu">
+                        <li><a href="{% url 'app_CasePoint:ver_usuarios' %}">Ver Usuarios</a></li>
+                        <li><a href="{% url 'app_CasePoint:agregar_usuario' %}">Agregar Usuario</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu"><a href="#">Marca</a>
+                    <ul class="submenu">
+                        <li><a href="{% url 'app_CasePoint:ver_marcas' %}">Ver Marcas</a></li>
+                        <li><a href="{% url 'app_CasePoint:agregar_marca' %}">Agregar Marca</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu"><a href="#">Producto</a>
+                    <ul class="submenu">
+                        <li><a href="{% url 'app_CasePoint:ver_productos' %}">Ver Productos</a></li>
+                        <li><a href="{% url 'app_CasePoint:agregar_producto' %}">Agregar Producto</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu"><a href="#">Pedido</a>
+                    <ul class="submenu">
+                        <li><a href="{% url 'app_CasePoint:ver_pedidos' %}">Ver Pedidos</a></li>
+                        <li><a href="{% url 'app_CasePoint:agregar_pedido' %}">Agregar Pedido</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu"><a href="#">Empleado</a>
+                    <ul class="submenu">
+                        <li><a href="{% url 'app_CasePoint:ver_empleados' %}">Ver Empleados</a></li>
+                        <li><a href="{% url 'app_CasePoint:agregar_empleado' %}">Agregar Empleado</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div style="padding:20px;">
+        {% block admin_content %}{% endblock %}
+    </div>
+    <footer style="position:fixed;bottom:0;left:0;right:0;background:#0d1631;color:#946f46;padding:8px;">CasePoint 2025, AHR 0599</footer>
+    <script>
+        // Toggle admin submenu on click. Close others and close on outside click.
+        (function(){
+            function closeAll(){
+                document.querySelectorAll('.has-submenu.open').forEach(function(el){ el.classList.remove('open'); });
+            }
+            document.addEventListener('click', function(e){
+                var toggle = e.target.closest('.has-submenu > a');
+                if(toggle){
+                    e.preventDefault();
+                    var li = toggle.parentElement;
+                    var isOpen = li.classList.contains('open');
+                    // close all first
+                    closeAll();
+                    if(!isOpen){ li.classList.add('open'); }
+                    return;
+                }
+                // click outside any submenu -> close
+                if(!e.target.closest('.has-submenu')){ closeAll(); }
+            });
+            // Close on Escape
+            document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeAll(); });
+        })();
+    </script>
+</body>
+</html>

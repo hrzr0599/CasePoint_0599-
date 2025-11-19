@@ -1,0 +1,34 @@
+{% extends 'admin/base_admin.html' %}
+{% block admin_content %}
+    <div class="admin-content-wrapper">
+        <div class="admin-header">
+            <h2>Ver Productos</h2>
+            <a href="{% url 'app_CasePoint:agregar_producto' %}" class="btn-add">+ Agregar Producto</a>
+        </div>
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Marca</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in productos %}
+                    <tr>
+                        <td>{{ p.id }}</td>
+                        <td>{{ p.nombre }}</td>
+                        <td>${{ p.precio }}</td>
+                        <td>{% if p.id_marca %}{{ p.id_marca.nombre }}{% else %}Sin marca{% endif %}</td>
+                        <td class="actions-cell">
+                            <a href="{% url 'app_CasePoint:actualizar_producto' p.id %}" class="btn-action btn-edit">Editar</a>
+                            <a href="{% url 'app_CasePoint:eliminar_producto' p.id %}" class="btn-action btn-delete">Eliminar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div style="display:flex;justify-content:center;align-items:center;height:70vh;">
+        <div style="width:420px;border:2px solid #0d1631;padding:20px;background:white;">
+            <div style="text-align:center;"><img src="{% static 'imagenes/logo.png' %}" style="height:60px;"/></div>
+            <h2 style="text-align:center;">INGRESE SUS DATOS DE EMPLEADO</h2>
+            {% if error %}<p style="color:red;">{{ error }}</p>{% endif %}
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group"><label>ID</label><input name="id" required></div>
+                <div class="form-group"><label>Contraseña</label><input name="contrasena" type="password" required></div>
+                <button class="login-button" type="submit">Ingresar</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

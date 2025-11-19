@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="image-section">
+        <img src="{% static 'imagenes/index-image.jpg' %}" alt="Imagen Principal">
+    </div>
+    <div class="scroll-section">
+        <header><h1>DEPARTAMENTOS</h1></header>
+        <div class="products-grid">
+            {% static "imagenes/index-image.jpg" as fallback_image %}
+            {% for code,label in departamentos %}
+                <div class="product-card">
+                    <div class="product-image">
+                        {% with img_path='imagenes/DC/d_'|add:code|add:'.png' %}
+                            <a href="{% url 'app_CasePoint:departamento_detalle' code %}"><img src="{% static img_path %}" alt="{{ label }}" onerror="this.onerror=null;this.src='{{ fallback_image }}';"></a>
+                        {% endwith %}
+                    </div>
+                    <div class="product-info">
+                        <span class="product-name">{{ label }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

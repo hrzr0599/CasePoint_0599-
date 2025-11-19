@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="cart-container">
+    <div class="cart-main">
+        <h1>🛒 Carrito de Compras</h1>
+        
+        {% if items %}
+            <div class="cart-items">
+                {% for it in items %}
+                    <div class="cart-item">
+                        <div class="cart-item-image">
+                            {% if it.producto.imagen_url %}
+                                <img src="{{ it.producto.imagen_url }}" alt="{{ it.producto.nombre }}">
+                            {% else %}
+                                <img src="{% static 'imagenes/placeholder.png' %}" alt="Sin imagen">
+                            {% endif %}
+                        </div>
+                        
+                        <div class="cart-item-details">
+                            <div class="cart-item-info">
+                                <h3>{{ it.producto.nombre }}</h3>
+                                <p><strong>Marca:</strong> {% if it.producto.id_marca %}{{ it.producto.id_marca.nombre }}{% else %}Sin marca{% endif %}</p>
+                                <p><strong>Descripción:</strong> {{ it.producto.descripcion|truncatewords:10 }}</p>
+                            </div>
+                            
+                            <div class="cart-item-quantity">
+                                <span>Cantidad: <strong>{{ it.cantidad }}</strong></span>
+                            </div>
+                            
+                            <div class="cart-item-price">
+                                <div class="price-label">Unitario</div>
+                                <div class="price-value">${{ it.producto.precio }}</div>
+                            </div>
+                            
+                            <div class="cart-item-price">
+                                <div class="price-label">Total</div>
+                                <div class="price-value">${{ it.total }}</div>
+                            </div>
+                            
+                            <div class="cart-item-remove">
+                                <a href="{% url 'app_CasePoint:remove_from_cart' it.producto.id %}">
+                                    ✕ Eliminar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-cart">
+                <div class="empty-cart-icon">🛍️</div>
+                <h2>Tu carrito está vacío</h2>
+                <p>No hay productos en tu carrito. ¡Empieza a comprar!</p>
+                <a href="{% url 'app_CasePoint:inicio' %}">Volver al inicio</a>
+            </div>
+        {% endif %}
+    </div>
+    
+    {% if items %}
+        <div class="cart-summary">
+            <h2>Resumen del Pedido</h2>
+            
+            <div class="summary-row">
+                <span>
+                    <span>Subtotal</span>
+                    <span>${{ subtotal }}</span>
+                </span>
+            </div>
+            
+            <div class="summary-row">
+                <span>
+                    <span>Envío</span>
+                    <span>${{ shipping }}</span>
+                </span>
+            </div>
+            
+            <div class="summary-row total">
+                <span>
+                    <span>Total</span>
+                    <span>${{ total }}</span>
+                </span>
+            </div>
+            
+            <a href="{% url 'app_CasePoint:checkout' %}">
+                <button class="checkout-btn">Proceder al Pago</button>
+            </a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

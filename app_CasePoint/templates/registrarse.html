@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="image-section">
+        <img src="{% static 'imagenes/login-image.jpg' %}" alt="Imagen Principal">
+    </div>
+    <div class="scroll-section">
+        <header><h1>REGISTRARSE</h1></header>
+        <div class="login-container">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group"><label>Nombre</label><input name="nombre" required></div>
+                <div class="form-group"><label>Apellido</label><input name="apellido" required></div>
+                <div class="form-group"><label>Correo</label><input name="correo" type="email" required></div>
+                <div class="form-group"><label>Teléfono</label><input name="telefono" required></div>
+                <div class="form-group"><label>Dirección</label><input name="direccion" required></div>
+                <div class="form-group"><label>Código postal</label><input name="codigo_postal"></div>
+                <div class="form-group"><label>Contraseña</label><input name="contrasena" type="password" required></div>
+                <button class="login-button" type="submit">Registrarse</button>
+            </form>
+            <a href="{% url 'app_CasePoint:iniciar_sesion' %}"><button class="account-button">Ya tengo una cuenta</button></a>
+        </div>
+    </div>
+{% endblock %}

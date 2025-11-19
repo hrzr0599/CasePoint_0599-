@@ -1,0 +1,9 @@
+{% extends 'admin/base_admin.html' %}
+{% block admin_content %}
+    <h2>Actualizar Pedido</h2>
+    <form method="post">{% csrf_token %}
+        <div class="form-group"><label>Estado</label><select name="estado_pedido">{% for e in estados %}<option value="{{ e.0 }}" {% if pedido.estado_pedido == e.0 %}selected{% endif %}>{{ e.1 }}</option>{% endfor %}</select></div>
+        <div class="form-group"><label>Método pago</label><select name="metodo_pago">{% for m in metodos %}<option value="{{ m.0 }}" {% if pedido.metodo_pago == m.0 %}selected{% endif %}>{{ m.1 }}</option>{% endfor %}</select></div>
+        <button class="login-button" type="submit">Guardar</button>
+    </form>
+{% endblock %}

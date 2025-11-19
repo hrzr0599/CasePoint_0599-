@@ -1,0 +1,37 @@
+{% extends 'admin/base_admin.html' %}
+{% block admin_content %}
+    <div class="admin-content-wrapper">
+        <div class="admin-header">
+            <h2>Ver Pedidos</h2>
+            <a href="{% url 'app_CasePoint:agregar_pedido' %}" class="btn-add">+ Agregar Pedido</a>
+        </div>
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Usuario</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                    <th>Total</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pd in pedidos %}
+                    <tr>
+                        <td>{{ pd.id }}</td>
+                        <td>{{ pd.id_usuario.nombre }} {{ pd.id_usuario.apellido }}</td>
+                        <td>{{ pd.fecha_pedido|date:"d/m/Y H:i" }}</td>
+                        <td><span class="status-badge status-{{ pd.estado_pedido|lower }}">{{ pd.get_estado_pedido_display }}</span></td>
+                        <td>${{ pd.total }}</td>
+                        <td class="actions-cell">
+                            <a href="{% url 'app_CasePoint:actualizar_pedido' pd.id %}" class="btn-action btn-edit">Editar</a>
+                            <a href="{% url 'app_CasePoint:ver_pedido' pd.id %}" class="btn-action btn-view">Ver</a>
+                            <a href="{% url 'app_CasePoint:eliminar_pedido' pd.id %}" class="btn-action btn-delete">Eliminar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

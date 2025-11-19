@@ -1,0 +1,43 @@
+{% extends 'admin/base_admin.html' %}
+{% block admin_content %}
+    <div class="admin-content-wrapper">
+        <div class="admin-header">
+            <h2>Detalle Pedido #{{ pedido.id }}</h2>
+            <a href="{% url 'app_CasePoint:ver_pedidos' %}" class="btn-add">← Volver a Pedidos</a>
+        </div>
+        <div style="padding:10px 0 20px 0;">
+            <p><strong>Usuario:</strong> {{ pedido.id_usuario.nombre }} {{ pedido.id_usuario.apellido }}</p>
+            <p><strong>Fecha:</strong> {{ pedido.fecha_pedido|date:"d/m/Y H:i" }}</p>
+            <p><strong>Estado:</strong> {{ pedido.get_estado_pedido_display }}</p>
+            <p><strong>Método de pago:</strong> {{ pedido.get_metodo_pago_display }}</p>
+        </div>
+
+        <h3>Productos</h3>
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio unitario</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for it in items %}
+                    <tr>
+                        <td><a href="{% url 'app_CasePoint:producto_detalle' it.producto.id %}">{{ it.producto.nombre }}</a></td>
+                        <td>{{ it.cantidad }}</td>
+                        <td>${{ it.producto.precio }}</td>
+                        <td>${{ it.line_total }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div style="margin-top:18px;max-width:400px;">
+            <div class="summary-row"><span><strong>Subtotal</strong><strong>${{ subtotal }}</strong></span></div>
+            <div class="summary-row"><span><strong>Envío</strong><strong>${{ shipping }}</strong></span></div>
+            <div class="summary-row total"><span><strong>Total</strong><strong>${{ total }}</strong></span></div>
+        </div>
+    </div>
+{% endblock %}

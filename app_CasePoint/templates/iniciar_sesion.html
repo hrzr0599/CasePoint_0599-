@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="image-section">
+        <img src="{% static 'imagenes/login-image.jpg' %}" alt="Imagen Principal">
+    </div>
+    <div class="scroll-section">
+        <header><h1>INICIAR SESION</h1></header>
+        <div class="login-container">
+            {% if error %}<p style="color:red;">{{ error }}</p>{% endif %}
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group"><label>Correo</label><input name="correo" type="email" required></div>
+                <div class="form-group"><label>Contraseña</label><input name="contrasena" type="password" required></div>
+                <button class="login-button" type="submit">Entrar</button>
+            </form>
+            <a href="{% url 'app_CasePoint:registrarse' %}"><button class="account-button">No tengo una cuenta</button></a>
+        </div>
+    </div>
+{% endblock %}

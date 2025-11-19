@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="image-section">
+        <img src="{% static 'imagenes/nosotros-image.jpg' %}" alt="Imagen">
+    </div>
+    <div class="scroll-section">
+        <header><h1>Mi Perfil</h1></header>
+        <div class="profile-wrapper">
+            <!-- Sección de datos del perfil -->
+            <div class="profile-section">
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            <span class="avatar-initials">{{ usuario.nombre|first|upper }}{{ usuario.apellido|first|upper }}</span>
+                        </div>
+                        <div class="profile-title">
+                            <h2>{{ usuario.nombre }} {{ usuario.apellido }}</h2>
+                            <p class="email-text">{{ usuario.correo }}</p>
+                        </div>
+                    </div>
+                    
+                    <form method="post" class="profile-form">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Nombre</label>
+                                <input type="text" name="nombre" value="{{ usuario.nombre }}">
+                            </div>
+                            <div class="form-group">
+                                <label>Apellido</label>
+                                <input type="text" name="apellido" value="{{ usuario.apellido }}">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Correo</label>
+                                <input type="email" name="correo" value="{{ usuario.correo }}">
+                            </div>
+                            <div class="form-group">
+                                <label>Teléfono</label>
+                                <input type="tel" name="telefono" value="{{ usuario.telefono }}">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label>Dirección</label>
+                            <input type="text" name="direccion" value="{{ usuario.direccion }}">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Código postal</label>
+                                <input type="text" name="codigo_postal" value="{{ usuario.codigo_postal }}">
+                            </div>
+                            <div class="form-group">
+                                <label>Contraseña (dejar en blanco para no cambiar)</label>
+                                <input type="password" name="contrasena" placeholder="Nueva contraseña">
+                            </div>
+                        </div>
+                        
+                        <div class="button-group">
+                            <button class="login-button" type="submit">Guardar Cambios</button>
+                            <a href="{% url 'app_CasePoint:logout' %}" class="account-button">Cerrar Sesión</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Sección de pedidos -->
+            <div class="orders-section">
+                <h3>Mis Pedidos</h3>
+                {% if pedidos %}
+                    <div class="orders-grid">
+                        {% for pedido in pedidos %}
+                            <div class="order-card">
+                                <div class="order-header">
+                                    <span class="order-number">Pedido #{{ pedido.id }}</span>
+                                    <span class="order-status status-{{ pedido.estado_pedido|lower }}">{{ pedido.get_estado_pedido_display }}</span>
+                                </div>
+                                <div class="order-body">
+                                    <p><strong>Fecha:</strong> {{ pedido.fecha_pedido|date:"d/m/Y H:i" }}</p>
+                                    <p><strong>Método de pago:</strong> {{ pedido.get_metodo_pago_display }}</p>
+                                    <p><strong>Items:</strong> {{ pedido.productopedido_set.count }}</p>
+                                </div>
+                                <div class="order-footer">
+                                    <span class="order-total">Total: ${{ pedido.total }}</span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="empty-orders">
+                        <p>No tienes pedidos aún.</p>
+                        <a href="{% url 'app_CasePoint:inicio' %}" class="login-button">Explorar Productos</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

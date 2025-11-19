@@ -1,0 +1,34 @@
+{% extends 'admin/base_admin.html' %}
+{% block admin_content %}
+    <div class="admin-content-wrapper">
+        <div class="admin-header">
+            <h2>Ver Marcas</h2>
+            <a href="{% url 'app_CasePoint:agregar_marca' %}" class="btn-add">+ Agregar Marca</a>
+        </div>
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Año Fundada</th>
+                    <th>País Origen</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for m in marcas %}
+                    <tr>
+                        <td>{{ m.id }}</td>
+                        <td>{{ m.nombre }}</td>
+                        <td>{{ m.año_fundada }}</td>
+                        <td>{{ m.pais_origen }}</td>
+                        <td class="actions-cell">
+                            <a href="{% url 'app_CasePoint:actualizar_marca' m.id %}" class="btn-action btn-edit">Editar</a>
+                            <a href="{% url 'app_CasePoint:eliminar_marca' m.id %}" class="btn-action btn-delete">Eliminar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

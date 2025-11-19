@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="image-section">
+        <img src="{% static 'imagenes/index-image.jpg' %}" alt="Imagen Principal">
+    </div>
+    <div class="scroll-section">
+        <header><h1>Confirmar Pedido</h1></header>
+        <div style="padding:20px;">
+            <p>Usuario: {{ usuario.nombre }} {{ usuario.apellido }}</p>
+            <p>Subtotal: ${{ subtotal }}</p>
+            <p>Envio: ${{ shipping }}</p>
+            <p>Total: ${{ total }}</p>
+            <form method="post" action="{% url 'app_CasePoint:checkout_confirm' %}">
+                {% csrf_token %}
+                <label>Método de pago:</label>
+                <select name="metodo_pago">
+                    <option value="TC">Tarjeta de Crédito</option>
+                    <option value="TD">Tarjeta de Debito</option>
+                    <option value="PP">Paypal</option>
+                </select>
+                <div style="margin-top:10px;"><button class="login-button" type="submit">Confirmar</button>
+                <a href="{% url 'app_CasePoint:view_cart' %}"><button type="button" class="account-button">Cancelar</button></a></div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
