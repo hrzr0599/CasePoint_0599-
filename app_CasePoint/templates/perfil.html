@@ -62,8 +62,11 @@
                         
                         <div class="button-group">
                             <button class="login-button" type="submit">Guardar Cambios</button>
-                            <a href="{% url 'app_CasePoint:logout' %}" class="account-button">Cerrar Sesión</a>
                         </div>
+                    </form>
+                    <a href="{% url 'app_CasePoint:logout' %}" class="account-button" style="display:block;text-align:center;margin-top:10px;">Cerrar Sesión</a>
+                    <form method="post" style="display:none;">
+                        {% csrf_token %}
                     </form>
                 </div>
             </div>

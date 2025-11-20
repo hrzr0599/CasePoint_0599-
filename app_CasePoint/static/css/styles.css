@@ -241,6 +241,14 @@ font-size: 1.1em;
 font-weight: bold;
 cursor: pointer;
 transition: background-color 0.3s ease;
+text-decoration: none !important;
+}
+
+.login-button,
+.login-button:hover,
+.login-button:visited {
+text-decoration: none !important;
+color: rgb(13, 22, 49) !important;
 }
 
 .login-button:hover {

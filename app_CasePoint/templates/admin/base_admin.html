@@ -16,7 +16,7 @@
 <body>
     <nav class="navbar admin-navbar">
         <div class="nav-left">
-            <a href="{% url 'app_CasePoint:inicio' %}" class="logo-link"><span class="logo-text">CasePoint</span></a>
+            <a href="{% url 'app_CasePoint:admin_home' %}" class="logo-link"><span class="logo-text">CasePoint</span></a>
         </div>
         <div class="nav-center"></div>
         <div class="nav-right">
@@ -57,7 +57,7 @@
     <div style="padding:20px;">
         {% block admin_content %}{% endblock %}
     </div>
-    <footer style="position:fixed;bottom:0;left:0;right:0;background:#0d1631;color:#946f46;padding:8px;">CasePoint 2025, AHR 0599</footer>
+    <footer style="position:fixed;bottom:0;left:0;right:0;background:#0d1631;color:#946f46;padding:8px;"><a href="{% url 'app_CasePoint:inicio' %}" style="color:#946f46;text-decoration:none;">CasePoint 2025, AHR 0599</a></footer>
     <script>
         // Toggle admin submenu on click. Close others and close on outside click.
         (function(){

@@ -93,6 +93,7 @@ def iniciar_sesion(request):
 
 def cerrar_sesion(request):
     request.session.pop('usuario_id', None)
+    request.session.pop('cart', None)
     return redirect('app_CasePoint:inicio')
 
 def perfil(request):

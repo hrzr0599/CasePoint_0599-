@@ -10,6 +10,8 @@
         <p>Precio: ${{ producto.precio }}</p>
         <p>Stock: {{ producto.stock }}</p>
         <p>{% if producto.id_marca %}<strong>{{ producto.id_marca.nombre }}</strong>{% else %}<strong>Sin marca</strong>{% endif %}</p>
-        <a href="{% url 'app_CasePoint:add_to_cart' producto.id %}"><button class="login-button">Agregar al Carrito</button></a>
+        <form method="get" action="{% url 'app_CasePoint:add_to_cart' producto.id %}" style="margin:0;">
+            <button type="submit" class="login-button">Agregar al Carrito</button>
+        </form>
     </div>
 {% endblock %}
