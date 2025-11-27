@@ -112,9 +112,13 @@ class ProductoPedido(models.Model):
 		return f"{self.cantidad} x {self.producto.nombre} en Pedido {self.pedido.id}"
 
 class Empleado(models.Model):
+	PUESTO_CHOICES = [
+		('ADM', 'Administrador'),
+	]
+
 	nombre = models.CharField(max_length=100)
 	apellido = models.CharField(max_length=100)
-	puesto = models.CharField(max_length=100)
+	puesto = models.CharField(max_length=3, choices=PUESTO_CHOICES)
 	correo = models.EmailField(unique=True)
 	telefono = models.CharField(max_length=20, unique=True)
 	contrasena = models.CharField(max_length=255, unique=True) # Se recomienda usar un hash de la contraseña en una aplicación real

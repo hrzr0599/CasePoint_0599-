@@ -4,7 +4,7 @@
     <form method="post">{% csrf_token %}
         <div class="form-group"><label>Nombre</label><input name="nombre" value="{{ empleado.nombre }}"></div>
         <div class="form-group"><label>Apellido</label><input name="apellido" value="{{ empleado.apellido }}"></div>
-        <div class="form-group"><label>Puesto</label><input name="puesto" value="{{ empleado.puesto }}"></div>
+        <div class="form-group"><label>Puesto</label><select name="puesto"><option value="ADM" {% if empleado.puesto == 'ADM' %}selected{% endif %}>Administrador</option></select></div>
         <div class="form-group"><label>Correo</label><input name="correo" value="{{ empleado.correo }}"></div>
         <div class="form-group"><label>Teléfono</label><input name="telefono" value="{{ empleado.telefono }}"></div>
         <div class="form-group"><label>Contraseña</label><input name="contrasena" value="{{ empleado.contrasena }}"></div>
