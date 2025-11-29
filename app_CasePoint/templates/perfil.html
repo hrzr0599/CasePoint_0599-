@@ -11,9 +11,6 @@
             <div class="profile-section">
                 <div class="profile-card">
                     <div class="profile-header">
-                        <div class="profile-avatar">
-                            <span class="avatar-initials">{{ usuario.nombre|first|upper }}{{ usuario.apellido|first|upper }}</span>
-                        </div>
                         <div class="profile-title">
                             <h2>{{ usuario.nombre }} {{ usuario.apellido }}</h2>
                             <p class="email-text">{{ usuario.correo }}</p>
@@ -79,7 +76,7 @@
                         {% for pedido in pedidos %}
                             <div class="order-card">
                                 <div class="order-header">
-                                    <span class="order-number">Pedido #{{ pedido.id }}</span>
+                                    <span class="order-number">Pedido</span>
                                     <span class="order-status status-{{ pedido.estado_pedido|lower }}">{{ pedido.get_estado_pedido_display }}</span>
                                 </div>
                                 <div class="order-body">

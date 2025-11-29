@@ -304,24 +304,6 @@ padding-bottom: 20px;
 border-bottom: 2px solid rgb(13, 22, 49);
 }
 
-.profile-avatar {
-width: 100px;
-height: 100px;
-border-radius: 50%;
-background: linear-gradient(135deg, rgb(148, 112, 70), rgb(13, 22, 49));
-display: flex;
-align-items: center;
-justify-content: center;
-flex-shrink: 0;
-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.avatar-initials {
-color: white;
-font-size: 2.5em;
-font-weight: bold;
-}
-
 .profile-title {
 flex: 1;
 }

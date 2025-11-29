@@ -170,6 +170,17 @@ def checkout(request):
     total = subtotal + shipping
     return render(request, 'checkout.html', {'items': items, 'subtotal': subtotal, 'shipping': shipping, 'total': total, 'usuario': usuario})
 
+def payment_details(request):
+    if request.method != 'POST':
+        return redirect('app_CasePoint:view_cart')
+    usuario_id = request.session.get('usuario_id')
+    if not usuario_id:
+        return redirect('app_CasePoint:registrarse')
+    metodo_pago = request.POST.get('metodo_pago', 'TC')
+    # Store metodo_pago in session temporarily for checkout_confirm
+    request.session['temp_metodo_pago'] = metodo_pago
+    return render(request, 'payment_form.html', {'metodo_pago': metodo_pago})
+
 def checkout_confirm(request):
     if request.method != 'POST':
         return redirect('app_CasePoint:view_cart')
@@ -177,10 +188,45 @@ def checkout_confirm(request):
     if not usuario_id:
         return redirect('app_CasePoint:registrarse')
     usuario = get_object_or_404(Usuario, pk=usuario_id)
-    metodo_pago = request.POST.get('metodo_pago', 'TC')
+    
+    # Get metodo_pago from either POST or session
+    metodo_pago = request.POST.get('metodo_pago') or request.session.get('temp_metodo_pago', 'TC')
+    
+    # Validate payment data (but don't store it)
+    titular = request.POST.get('titular', '')
+    if not titular:
+        return render(request, 'payment_form.html', {
+            'metodo_pago': metodo_pago,
+            'error': 'El titular es requerido'
+        })
+    
+    if metodo_pago in ['TC', 'TD']:
+        numero_tarjeta = request.POST.get('numero_tarjeta', '')
+        nip = request.POST.get('nip', '')
+        if not numero_tarjeta or len(numero_tarjeta) != 10 or not numero_tarjeta.isdigit():
+            return render(request, 'payment_form.html', {
+                'metodo_pago': metodo_pago,
+                'error': 'Número de tarjeta inválido (debe tener 10 dígitos)'
+            })
+        if not nip or len(nip) != 4 or not nip.isdigit():
+            return render(request, 'payment_form.html', {
+                'metodo_pago': metodo_pago,
+                'error': 'NIP inválido (debe tener 4 dígitos)'
+            })
+    else:
+        correo = request.POST.get('correo', '')
+        contrasena = request.POST.get('contrasena', '')
+        if not correo or not contrasena:
+            return render(request, 'payment_form.html', {
+                'metodo_pago': metodo_pago,
+                'error': 'Correo y contraseña son requeridos'
+            })
+    
+    # Data is valid but we don't store it. Proceed with order creation.
     cart = _get_cart(request)
     if not cart:
         return redirect('app_CasePoint:view_cart')
+    
     pedido = Pedido.objects.create(id_usuario=usuario, metodo_pago=metodo_pago)
     for pid, qty in cart.items():
         producto = get_object_or_404(Producto, pk=int(pid))
@@ -189,6 +235,7 @@ def checkout_confirm(request):
     pedido.save()
     # empty cart
     request.session['cart'] = {}
+    request.session.pop('temp_metodo_pago', None)
     return render(request, 'checkout_success.html', {'pedido': pedido})
 
 # Admin simple views

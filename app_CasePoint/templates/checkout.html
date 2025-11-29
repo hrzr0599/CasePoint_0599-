@@ -5,21 +5,26 @@
         <img src="{% static 'imagenes/index-image.jpg' %}" alt="Imagen Principal">
     </div>
     <div class="scroll-section">
-        <header><h1>Confirmar Pedido</h1></header>
+        <header style="position:relative;">
+            <h1>Confirmar Pedido</h1>
+            <button type="button" onclick="history.back()" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgb(148,112,70);font-size:1.5em;cursor:pointer;padding:5px 10px;" title="Ir atrás">←</button>
+        </header>
         <div style="padding:20px;">
             <p>Usuario: {{ usuario.nombre }} {{ usuario.apellido }}</p>
             <p>Subtotal: ${{ subtotal }}</p>
             <p>Envio: ${{ shipping }}</p>
             <p>Total: ${{ total }}</p>
-            <form method="post" action="{% url 'app_CasePoint:checkout_confirm' %}">
+            <form method="post" action="{% url 'app_CasePoint:payment_details' %}">
                 {% csrf_token %}
                 <label>Método de pago:</label>
                 <select name="metodo_pago">
                     <option value="TC">Tarjeta de Crédito</option>
                     <option value="TD">Tarjeta de Debito</option>
                     <option value="PP">Paypal</option>
+                    <option value="AP">Apple Pay</option>
+                    <option value="GP">Google Pay</option>
                 </select>
-                <div style="margin-top:10px;"><button class="login-button" type="submit">Confirmar</button>
+                <div style="margin-top:10px;"><button class="login-button" type="submit">Siguiente</button>
                 <a href="{% url 'app_CasePoint:view_cart' %}"><button type="button" class="account-button">Cancelar</button></a></div>
             </form>
         </div>

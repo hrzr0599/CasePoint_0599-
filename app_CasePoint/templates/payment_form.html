@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="image-section">
+        <img src="{% static 'imagenes/index-image.jpg' %}" alt="Imagen Principal">
+    </div>
+    <div class="scroll-section">
+        <header style="position:relative;">
+            <h1>Datos de Pago</h1>
+            <button type="button" onclick="history.back()" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgb(148,112,70);font-size:1.5em;cursor:pointer;padding:5px 10px;" title="Ir atrás">←</button>
+        </header>
+        <div style="padding:20px;max-width:500px;margin:0 auto;">
+            <form method="post" action="{% url 'app_CasePoint:checkout_confirm' %}">
+                {% csrf_token %}
+                <input type="hidden" name="metodo_pago" value="{{ metodo_pago }}">
+                
+                <div class="form-group">
+                    <label>Titular</label>
+                    <input type="text" name="titular" required>
+                </div>
+
+                {% if metodo_pago in 'TC,TD' %}
+                    <div class="form-group">
+                        <label>Número de Tarjeta (10 dígitos)</label>
+                        <input type="text" name="numero_tarjeta" placeholder="1234567890" pattern="\d{10}" maxlength="10" required>
+                    </div>
+                    <div class="form-group">
+                        <label>NIP (4 dígitos)</label>
+                        <input type="password" name="nip" placeholder="0000" pattern="\d{4}" maxlength="4" required>
+                    </div>
+                {% else %}
+                    <div class="form-group">
+                        <label>Correo</label>
+                        <input type="email" name="correo" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Contraseña</label>
+                        <input type="password" name="contrasena" required>
+                    </div>
+                {% endif %}
+
+                <div style="margin-top:20px;display:flex;gap:10px;">
+                    <button class="login-button" type="submit" style="flex:1;margin:0;">Confirmar Pago</button>
+                    <a href="{% url 'app_CasePoint:view_cart' %}" style="flex:1;"><button type="button" class="account-button" style="width:100%;margin:0;">Cancelar</button></a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
