@@ -6,6 +6,9 @@ PAGINA:
 <img width="1919" height="1004" alt="image" src="https://github.com/user-attachments/assets/749034f1-9d51-4ffb-9454-fdb3d90e204c" />
 
 INICIAR SESION:
+<img width="1918" height="1017" alt="image" src="https://github.com/user-attachments/assets/b4c203d3-60cb-4e83-b8f2-0919d6df9a5e" />
+<img width="1919" height="1013" alt="image" src="https://github.com/user-attachments/assets/a5fc9889-68b2-40cf-93cc-0a283cc90ff9" />
+<img width="1915" height="826" alt="image" src="https://github.com/user-attachments/assets/d741ba4d-2feb-479a-8790-1cc163208582" />
 
 PERFIL:
 <img width="1919" height="1017" alt="image" src="https://github.com/user-attachments/assets/3378ef5a-7181-4ea6-b8fa-b0fbfb971d76" />
